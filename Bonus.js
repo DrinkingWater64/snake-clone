@@ -10,7 +10,7 @@ class Bonus{
         noStroke();
         fill(0,0,225);
         rect(this.x,this.y,1,1);
-        this.resetLocation();
+       // this.resetLocation();
     }
 
     resetLocation(){

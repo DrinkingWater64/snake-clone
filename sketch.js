@@ -10,6 +10,7 @@ let h;
 let score = 0;
 let isOver = false;
 let isBonus;
+let isEmpty = false;
 
 function setup(){
     createCanvas(400, 400);
@@ -35,10 +36,14 @@ function draw(){
         foodLocation();
         score = score+1;
     }
-    if(snake.eat(bonus)){
-        score = score+bonus.bonusPoint;
+    if(!isEmpty){
+        if(snake.eat(bonus[0])){
+            score = score+bonus[0].bonusPoint;
+            bonus.splice(0,1);
+        isEmpty = true;
         //bonus.resetLocation();
-    }
+        }
+}
     snake.update();
     snake.show();
     
@@ -121,13 +126,17 @@ function foodLocation(){
 }
 
 function spawnBonus(){
-    if(frameCount % 4 == 0){
+    if(frameCount % 40 == 0){
         bonus.splice(0,1);
+        isEmpty = true;
     }
-    if(frameCount % 4 == 0){
+    if(frameCount % 80 == 0){
           bonus.push(new Bonus); 
+          isEmpty = false;
           console.log('ok'); 
     }
+    if(!isEmpty){
     bonus[0].show();
     console.log(bonus.length+'  ');
+    }
 }
