@@ -1,12 +1,15 @@
 
 
+
 let snake;
+let bonus = [];
 let rez = 10;
 let food;
 let w;
 let h;
 let score = 0;
 let isOver = false;
+let isBonus;
 
 function setup(){
     createCanvas(400, 400);
@@ -17,9 +20,10 @@ function setup(){
 
     frameRate(5);
     snake = new Snake();
+    bonus.push(new Bonus());
     foodLocation();
 }
-
+ 
 
 
 function draw(){
@@ -31,8 +35,16 @@ function draw(){
         foodLocation();
         score = score+1;
     }
+    if(snake.eat(bonus)){
+        score = score+bonus.bonusPoint;
+        //bonus.resetLocation();
+    }
     snake.update();
     snake.show();
+    
+    spawnBonus();
+
+
     if(snake.gameOver()){
         gameOver();
         
@@ -105,4 +117,17 @@ function foodLocation(){
     let x = floor(random(w));
     let y = floor(random(h));
     food = createVector(x,y);
+    food.isBonus = false;
+}
+
+function spawnBonus(){
+    if(frameCount % 4 == 0){
+        bonus.splice(0,1);
+    }
+    if(frameCount % 4 == 0){
+          bonus.push(new Bonus); 
+          console.log('ok'); 
+    }
+    bonus[0].show();
+    console.log(bonus.length+'  ');
 }

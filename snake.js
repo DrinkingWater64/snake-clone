@@ -34,6 +34,10 @@ constructor(){
         let y= this.body[this.body.length-1].y;
         if(x == pos.x && y== pos.y){
             console.log('eaten');
+            if(pos.isBonus){
+                isBonus = false;
+                return true;
+            }
             this.grow();
             return true;
         }
