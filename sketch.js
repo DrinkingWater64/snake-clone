@@ -7,6 +7,8 @@ let rez = 10;
 let food;
 let w;
 let h;
+let sideOppo=false;
+let upDownOppo=false;
 let score = 0;
 let isOver = false;
 let isBonus;
@@ -70,17 +72,27 @@ function keyPressed(){
         resetGame();
         }
     }
-    else if ( keyCode == LEFT_ARROW){
+    else if (sideOppo == false && keyCode == LEFT_ARROW){
+        console.log('going left');
         snake.setDir(-1, 0);
-    } else if(keyCode == DOWN_ARROW){
-        
+        upDownOppo = false;
+        sideOppo = true;
+
+    } else if(upDownOppo == false &&  keyCode == DOWN_ARROW){
+        console.log('going down');
         snake.setDir(0, 1);
-    } else if(keyCode == UP_ARROW){
-        
+        sideOppo = false;
+        upDownOppo = true;
+    } else if(upDownOppo == false && keyCode == UP_ARROW){
+        console.log('going up');
         snake.setDir(0, -1);
-    }else if(keyCode == RIGHT_ARROW){
-             
+        sideOppo = false;
+        upDownOppo = true;
+    }else if(sideOppo == false && keyCode == RIGHT_ARROW){
+             console.log('going right');
         snake.setDir(1, 0);
+        upDownOppo = false;
+        sideOppo = true;
     }
     
 }
@@ -116,7 +128,8 @@ function showScores(){
   textSize(1);
   textAlign(TOP );
   text('score: ' + score, 15, 1, width);
-  console.log('baal');
+  //console.log('baal');
+
 }
 function foodLocation(){
     let x = floor(random(w));
